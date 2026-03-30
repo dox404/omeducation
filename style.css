@@ -5133,6 +5133,14 @@ button#openPopup:hover{
     line-height: 1.45;
   }
 
+  .faqCards__cta .ctaPrice,
+  .faqCards__cta .faqCards__note{
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: #0b1220 !important;
+  }
+
   .ctaPrice del{
     color: #22c55e !important;
     font-size: 14px !important;
