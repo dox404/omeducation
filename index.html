@@ -16,10 +16,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     window.webinarRegistrationConfig = {
-      emailjsPublicKey: "9majFUo8kCY78_4Ao",
-      emailjsServiceId: "service_vr82574",
-      emailjsAdminTemplateId: "template_z7ap34h",
-      emailjsConfirmationTemplateId: "template_7i985z9",
+      emailjsPublicKey: "MrBH0DcJ0rJGHFoJ6",
+      emailjsServiceId: "service_ver50s6",
+      emailjsAdminTemplateId: "template_hvy399c",
+      emailjsConfirmationTemplateId: "template_4av7b0j",
       whatsappGroupLink: "https://chat.whatsapp.com/I2UV9GrOsVdJgIdYVXUTK9?mode=gi_t",
       adminEmail: "mani.muktarul@gmail.com",
       whatsappApiUrl: "http://localhost:3000/api/send-whatsapp",
@@ -394,24 +394,102 @@
 
       <div class="ppBlock">
         <div class="ppTop">
-          <h3 class="ppLabel">Gallery</h3>
+          <h3 class="ppLabel">Videos</h3>
 
           <div class="ppNav">
-            <button class="ppBtn is-prev" type="button" data-pp-prev aria-label="Previous photos">‹</button>
-            <button class="ppBtn is-next" type="button" data-pp-next aria-label="Next photos">›</button>
+            <button class="ppBtn is-prev" type="button" data-pp-prev aria-label="Previous video">‹</button>
+            <button class="ppBtn is-next" type="button" data-pp-next aria-label="Next video">›</button>
           </div>
         </div>
 
-        <div class="ppCarousel" data-pp-carousel aria-label="Photos carousel">
+        <div class="ppCarousel" data-pp-carousel aria-label="Workshop videos carousel">
           <div class="ppTrack">
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-1.jpg" alt="Workshop session photo 1"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-6.jpeg" alt="Workshop session photo 2"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-3.jpg" alt="Workshop session photo 3"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-8.jpeg" alt="Workshop session photo 4"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-5.jpg" alt="Workshop session photo 5"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-2.JPG" alt="Workshop session photo 6"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-7.jpeg" alt="Workshop session photo 7"></article>
-            <article class="ppCard"><img src="./assets/Workshop/Workshop-4.jpg" alt="Workshop session photo 8"></article>
+            <article class="ppCard">
+              <div class="ppCard__media">
+                <video class="ppCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Workshop video 1">
+                  <source src="./assets/Workshop/Workshop-video-1.mp4" type="video/mp4">
+                </video>
+                <button class="ppCard__play" type="button" aria-label="Play workshop video 1">
+                  <span class="ppCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                  <span class="ppCard__playText">Play</span>
+                </button>
+              </div>
+              <div class="ppCard__meta">
+                <span class="ppCard__tag">Workshop Video 01</span>
+              </div>
+            </article>
+
+            <article class="ppCard">
+              <div class="ppCard__media">
+                <video class="ppCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Workshop video 2">
+                  <source src="./assets/Workshop/Workshop-video-2.mp4" type="video/mp4">
+                </video>
+                <button class="ppCard__play" type="button" aria-label="Play workshop video 2">
+                  <span class="ppCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                  <span class="ppCard__playText">Play</span>
+                </button>
+              </div>
+              <div class="ppCard__meta">
+                <span class="ppCard__tag">Workshop Video 02</span>
+              </div>
+            </article>
+
+            <article class="ppCard">
+              <div class="ppCard__media">
+                <video class="ppCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Workshop video 3">
+                  <source src="./assets/Workshop/Workshop-video-3.mp4" type="video/mp4">
+                </video>
+                <button class="ppCard__play" type="button" aria-label="Play workshop video 3">
+                  <span class="ppCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                  <span class="ppCard__playText">Play</span>
+                </button>
+              </div>
+              <div class="ppCard__meta">
+                <span class="ppCard__tag">Workshop Video 03</span>
+              </div>
+            </article>
+            <article class="ppCard">
+              <div class="ppCard__media">
+                <video class="ppCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Workshop video 4">
+                  <source src="./assets/Workshop/Workshop-video-4.mp4" type="video/mp4">
+                </video>
+                <button class="ppCard__play" type="button" aria-label="Play workshop video 4">
+                  <span class="ppCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                  <span class="ppCard__playText">Play</span>
+                </button>
+              </div>
+              <div class="ppCard__meta">
+                <span class="ppCard__tag">Workshop Video 04</span>
+              </div>
+            </article>
+            <article class="ppCard">
+              <div class="ppCard__media">
+                <video class="ppCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Workshop video 5">
+                  <source src="./assets/Workshop/Workshop-video-5.mp4" type="video/mp4">
+                </video>
+                <button class="ppCard__play" type="button" aria-label="Play workshop video 5">
+                  <span class="ppCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                  <span class="ppCard__playText">Play</span>
+                </button>
+              </div>
+              <div class="ppCard__meta">
+                <span class="ppCard__tag">Workshop Video 05</span>
+              </div>
+            </article>
+            <article class="ppCard">
+              <div class="ppCard__media">
+                <video class="ppCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Workshop video 6">
+                  <source src="./assets/Workshop/Workshop-video-6.mp4" type="video/mp4">
+                </video>
+                <button class="ppCard__play" type="button" aria-label="Play workshop video 6">
+                  <span class="ppCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                  <span class="ppCard__playText">Play</span>
+                </button>
+              </div>
+              <div class="ppCard__meta">
+                <span class="ppCard__tag">Workshop Video 06</span>
+              </div>
+            </article>
           </div>
         </div>
 
@@ -468,7 +546,7 @@
 
       <div class="wsVideos__shell">
         <div class="wsVideos__top">
-          <p class="wsVideos__hint">Use the arrows, swipe, or let the carousel auto-scroll.</p>
+          <!-- <p class="wsVideos__hint">Use the arrows, swipe, or let the carousel auto-scroll.</p> -->
 
           <div class="wsVideos__nav">
             <button class="wsVideos__navBtn" type="button" data-ws-prev aria-label="Previous feedback">‹</button>
@@ -478,10 +556,10 @@
 
         <div class="wsVideos__carousel" data-ws-carousel aria-label="Student feedback carousel">
           <div class="wsVideos__track">
-            <article class="wsVidCard">
+            <article class="wsVidCard wsVidCard--contain">
               <div class="wsVidCard__frame">
                 <video class="wsVidCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Student feedback video 1">
-                  <source src="./assets/Feedback/1.mp4" type="video/mp4">
+                  <source src="./assets/Feedback/8.mp4" type="video/mp4">
                 </video>
                 <button class="wsVidCard__play" type="button" aria-label="Play student feedback video 1">
                   <span class="wsVidCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
@@ -497,7 +575,7 @@
             <article class="wsVidCard">
               <div class="wsVidCard__frame">
                 <video class="wsVidCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Student feedback video 2">
-                  <source src="./assets/Feedback/2.mp4" type="video/mp4">
+                  <source src="./assets/Feedback/9.mp4" type="video/mp4">
                 </video>
                 <button class="wsVidCard__play" type="button" aria-label="Play student feedback video 2">
                   <span class="wsVidCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
@@ -510,10 +588,10 @@
               </div>
             </article>
 
-            <article class="wsVidCard">
+            <article class="wsVidCard wsVidCard--contain">
               <div class="wsVidCard__frame">
                 <video class="wsVidCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Student feedback video 3">
-                  <source src="./assets/Feedback/3.mp4" type="video/mp4">
+                  <source src="./assets/Feedback/10.mp4" type="video/mp4">
                 </video>
                 <button class="wsVidCard__play" type="button" aria-label="Play student feedback video 3">
                   <span class="wsVidCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
@@ -545,7 +623,7 @@
             <article class="wsVidCard">
               <div class="wsVidCard__frame">
                 <video class="wsVidCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Student feedback video 5">
-                  <source src="./assets/Feedback/5.mp4" type="video/mp4">
+                  <source src="./assets/Feedback/1.mp4" type="video/mp4">
                 </video>
                 <button class="wsVidCard__play" type="button" aria-label="Play student feedback video 5">
                   <span class="wsVidCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
@@ -593,7 +671,7 @@
             <article class="wsVidCard">
               <div class="wsVidCard__frame">
                 <video class="wsVidCard__video" playsinline preload="metadata" controlslist="nodownload noplaybackrate" aria-label="Student feedback video 8">
-                  <source src="./assets/Feedback/8.mp4" type="video/mp4">
+                  <source src="./assets/Feedback/2.mp4" type="video/mp4">
                 </video>
                 <button class="wsVidCard__play" type="button" aria-label="Play student feedback video 8">
                   <span class="wsVidCard__playIcon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
@@ -817,7 +895,7 @@
 
           <a class="discContact__row" href="tel:+917069007611">
             <span class="discContact__ic" aria-hidden="true">☎</span>
-            <span class="discContact__val">+91 7069007611</span>
+            <span class="discContact__val">+91 7069007611-12</span>
           </a>
         </div>
       </div>

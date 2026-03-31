@@ -3259,11 +3259,131 @@ background: #4653a554;
   overflow:hidden;
 }
 
-.ppCard img{
+.ppCard__media{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+.ppCard__media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(9,18,36,.10) 0%, rgba(9,18,36,.52) 100%);
+  pointer-events:none;
+  transition: opacity .18s ease;
+  z-index:2;
+}
+
+.ppCard.is-playing .ppCard__media::after{
+  opacity:0;
+}
+
+.ppCard__thumb{
+  position:absolute;
+  inset:0;
   width:100%;
-  height: 260px;
-  object-fit: cover;
+  height:100%;
   display:block;
+  object-fit: cover;
+  background:#050b16;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .18s ease;
+  z-index:1;
+}
+
+.ppCard__thumb.is-ready{
+  opacity:1;
+}
+
+.ppCard.is-playing .ppCard__thumb{
+  opacity:0;
+}
+
+.ppCard__video{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit: cover;
+  background:#050b16;
+}
+
+.ppCard__play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  min-width: 0;
+  padding: 10px 14px 10px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(7,18,36,.62);
+  color: #ffffff;
+  cursor:pointer;
+  box-shadow: 0 14px 34px rgba(0,0,0,.26);
+  backdrop-filter: blur(10px);
+  z-index:3;
+  transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease;
+}
+
+.ppCard__play:hover,
+.ppCard__play:focus-visible{
+  transform: translate(-50%, -50%) scale(1.04);
+  box-shadow: 0 18px 40px rgba(0,0,0,.32);
+}
+
+.ppCard__play:focus-visible{
+  outline: 3px solid rgba(255,255,255,.18);
+  outline-offset: 4px;
+}
+
+.ppCard__playIcon{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#fff;
+  background: linear-gradient(135deg, #e11d48, #fb7185);
+  font-size: 16px;
+  box-shadow: 0 10px 22px rgba(225,29,72,.34);
+}
+
+.ppCard__playText{
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ppCard.is-playing .ppCard__play{
+  opacity:0;
+  pointer-events:none;
+}
+
+.ppCard__meta{
+  padding: 14px 16px 16px;
+}
+
+.ppCard__tag{
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, .12);
+  color: #1d4ed8;
+  font-size: .86rem;
+  font-weight: 700;
+  letter-spacing: .02em;
 }
 
 /* dots */
@@ -3291,7 +3411,9 @@ background: #4653a554;
 /* ✅ mobile: 1 per view */
 @media (max-width: 760px){
   .ppCard{ flex-basis: 100%; }
-  .ppCard img{ height: 240px; }
+  .ppCard__meta{
+    padding: 12px 14px 14px;
+  }
 }
 /* =========================
 STICKY FOOTER CTA (Take U Turn)
@@ -4809,6 +4931,11 @@ button#openPopup:hover{
 
 .wsVidCard__video{
   object-fit: cover !important;
+  background: #050b16 !important;
+}
+
+.wsVidCard--contain .wsVidCard__video{
+  object-fit: contain !important;
   background: #050b16 !important;
 }
 

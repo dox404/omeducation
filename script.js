@@ -478,6 +478,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let index = 0;
   let maxIndex = 0;
 
+  const pauseAllCards = () => {
+    cards.forEach((card) => {
+      const video = card.querySelector(".ppCard__video");
+      if (!video) return;
+
+      if (!video.paused) video.pause();
+      video.controls = false;
+      card.classList.remove("is-playing");
+    });
+  };
+
   const calcMaxIndex = () => {
     const pv = perView();
     maxIndex = Math.max(0, cards.length - pv);
@@ -516,12 +527,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const b = document.createElement("button");
       b.type = "button";
       b.className = "ppDot" + (i === index ? " is-active" : "");
-      b.addEventListener("click", () => { index = i; render(); });
+      b.addEventListener("click", () => {
+        pauseAllCards();
+        index = i;
+        render();
+      });
       dotsWrap.appendChild(b);
     }
   };
 
   const goTo = (i) => {
+    pauseAllCards();
     calcMaxIndex();
     if (i < 0) i = maxIndex;
     if (i > maxIndex) i = 0;
@@ -548,6 +564,153 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     buildDots();
     render();
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) pauseAllCards();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = Array.from(document.querySelectorAll(".ppCard"));
+  if (!cards.length) return;
+
+  const pauseCard = (card) => {
+    const video = card.querySelector(".ppCard__video");
+    if (!video) return;
+
+    if (!video.paused) video.pause();
+    video.controls = false;
+    card.classList.remove("is-playing");
+  };
+
+  const pauseOtherCards = (activeCard) => {
+    cards.forEach((card) => {
+      if (card !== activeCard) pauseCard(card);
+    });
+  };
+
+  cards.forEach((card) => {
+    const media = card.querySelector(".ppCard__media");
+    const video = card.querySelector(".ppCard__video");
+    const playButton = card.querySelector(".ppCard__play");
+    if (!media || !video || !playButton) return;
+
+    let thumb = media.querySelector(".ppCard__thumb");
+    if (!thumb) {
+      thumb = document.createElement("img");
+      thumb.className = "ppCard__thumb";
+      thumb.alt = "";
+      thumb.setAttribute("aria-hidden", "true");
+      media.insertBefore(thumb, playButton);
+    }
+
+    const applyThumbnail = () => {
+      if (!thumb || video.videoWidth <= 0 || video.videoHeight <= 0) return false;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const context = canvas.getContext("2d");
+      if (!context) return false;
+
+      try {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        thumb.src = canvas.toDataURL("image/jpeg", 0.82);
+        thumb.classList.add("is-ready");
+        return true;
+      } catch (error) {
+        thumb.classList.remove("is-ready");
+        return false;
+      }
+    };
+
+    const primePreviewFrame = () => {
+      const duration = Number.isFinite(video.duration) ? video.duration : 0;
+      if (duration <= 0) {
+        video.dataset.previewReady = applyThumbnail() ? "true" : "false";
+        return;
+      }
+
+      const previewTime = Math.max(0.15, Math.min(1.2, duration * 0.12, duration - 0.1));
+      if (!(previewTime > 0)) {
+        video.dataset.previewReady = applyThumbnail() ? "true" : "false";
+        return;
+      }
+
+      const onSeeked = () => {
+        video.pause();
+        video.controls = false;
+        video.dataset.previewReady = applyThumbnail() ? "true" : "false";
+
+        try {
+          video.currentTime = 0;
+        } catch (error) {}
+      };
+
+      video.addEventListener("seeked", onSeeked, { once: true });
+
+      try {
+        video.currentTime = previewTime;
+      } catch (error) {
+        video.dataset.previewReady = applyThumbnail() ? "true" : "false";
+      }
+    };
+
+    video.autoplay = false;
+    video.loop = false;
+    video.muted = false;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.controls = false;
+    video.pause();
+    card.dataset.hasStarted = "false";
+    video.dataset.previewReady = "false";
+
+    if (video.readyState >= 2) {
+      primePreviewFrame();
+    } else {
+      video.addEventListener("loadeddata", primePreviewFrame, { once: true });
+    }
+
+    video.load();
+
+    playButton.addEventListener("click", async () => {
+      pauseOtherCards(card);
+
+      try {
+        if (card.dataset.hasStarted !== "true" && video.dataset.previewReady === "true") {
+          video.currentTime = 0;
+        }
+        video.controls = true;
+        await video.play();
+      } catch (error) {
+        video.controls = false;
+        card.classList.remove("is-playing");
+      }
+    });
+
+    video.addEventListener("play", () => {
+      pauseOtherCards(card);
+      video.controls = true;
+      card.classList.add("is-playing");
+      card.dataset.hasStarted = "true";
+    });
+
+    video.addEventListener("pause", () => {
+      if (!video.ended) {
+        video.controls = false;
+        card.classList.remove("is-playing");
+      }
+    });
+
+    video.addEventListener("ended", () => {
+      video.controls = false;
+      card.classList.remove("is-playing");
+      card.dataset.hasStarted = "false";
+      video.currentTime = 0;
+    });
   });
 });
 
