@@ -740,18 +740,58 @@ document.addEventListener("DOMContentLoaded", () => {
     const playButton = card.querySelector(".wsVidCard__play");
     if (!video || !playButton) return;
 
+    const primePreviewFrame = () => {
+      const duration = Number.isFinite(video.duration) ? video.duration : 0;
+      if (duration <= 0) return;
+
+      const previewTime = Math.max(0.15, Math.min(1.2, duration * 0.12, duration - 0.1));
+      if (!(previewTime > 0)) return;
+
+      const onSeeked = () => {
+        video.pause();
+        video.controls = false;
+        video.dataset.previewReady = "true";
+      };
+
+      video.addEventListener("seeked", onSeeked, { once: true });
+
+      try {
+        video.currentTime = previewTime;
+      } catch (error) {
+        video.dataset.previewReady = "false";
+      }
+    };
+
     video.autoplay = false;
     video.loop = false;
     video.muted = false;
     video.playsInline = true;
+    video.preload = "auto";
     video.controls = false;
     video.pause();
+    card.dataset.hasStarted = "false";
+    video.dataset.previewReady = "false";
+
+    if (video.readyState >= 2) {
+      primePreviewFrame();
+    } else {
+      video.addEventListener("loadeddata", primePreviewFrame, { once: true });
+    }
+
+    video.addEventListener("error", () => {
+      video.dataset.previewReady = "false";
+    });
+
+    video.load();
 
     playButton.addEventListener("click", async () => {
       pauseOtherCards(card);
       stopAuto();
 
       try {
+        if (card.dataset.hasStarted !== "true" && video.dataset.previewReady === "true") {
+          video.currentTime = 0;
+        }
         video.controls = true;
         await video.play();
       } catch (error) {
@@ -766,6 +806,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pauseOtherCards(card);
       video.controls = true;
       card.classList.add("is-playing");
+      card.dataset.hasStarted = "true";
     });
 
     video.addEventListener("pause", () => {
@@ -779,6 +820,7 @@ document.addEventListener("DOMContentLoaded", () => {
     video.addEventListener("ended", () => {
       video.controls = false;
       card.classList.remove("is-playing");
+      card.dataset.hasStarted = "false";
       video.currentTime = 0;
       queueAutoResume();
     });
